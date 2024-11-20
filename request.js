@@ -7,16 +7,16 @@ async function scrapeWebsite(url) {
 
         var parseString = require('xml2js').parseString;
         parseString(xml, function (err, result) {
-            // console.dir(result);
+            console.dir(result);
 
-            for (let article of result["rdf:RDF"].item) {
+            for (let article of result.rss.channel[0].item) {
                 if (!(typeof article.description === "undefined"))
                      console.log(article.title[0] + ": " + article.description)
                 else
                     console.log(article.title[0] + ": " + article.link)
             }
         
-            // console.log("Done.")
+            console.log("Done.")
         });
     } catch (error) {
         console.error("Error fetching website data:", error);
@@ -24,4 +24,5 @@ async function scrapeWebsite(url) {
 }
 
 // Example usage:
-scrapeWebsite("https://rss.orf.at/news.xml");
+// scrapeWebsite("https://rss.orf.at/news.xml");
+scrapeWebsite("https://rss.orf.at/science.xml");
